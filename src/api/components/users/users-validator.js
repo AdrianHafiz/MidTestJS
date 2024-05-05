@@ -4,6 +4,7 @@ const joiPassword = joi.extend(joiPasswordExtendCore);
 
 module.exports = {
   getUsers: {
+    // validation untuk mengambil data user
     query: {
       page_number: joi.number().min(1).required().label('page_number'),
       page_size: joi.number().min(1).required().label('page_size'),
@@ -13,6 +14,7 @@ module.exports = {
   },
 
   createUser: {
+    // validation untuk membuat user
     body: {
       name: joi.string().min(1).max(100).required().label('Name'),
       email: joi.string().email().required().label('Email'),
@@ -33,6 +35,7 @@ module.exports = {
   },
 
   updateUser: {
+    //validation untuk mengupdate/mengubah data user
     body: {
       name: joi.string().min(1).max(100).required().label('Name'),
       email: joi.string().email().required().label('Email'),
@@ -40,6 +43,7 @@ module.exports = {
   },
 
   changePassword: {
+    //validation untuk mengubah password user
     body: {
       password_old: joi.string().required().label('Old password'),
       password_new: joiPassword

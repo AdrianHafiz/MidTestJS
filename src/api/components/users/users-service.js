@@ -6,16 +6,19 @@ const { hashPassword, passwordMatched } = require('../../../utils/password');
  * @returns {Array}
  */
 async function getUsers(page_number, page_size, sort, search) {
+  //mengambil data user dari repository sesuai parameter
   const users = await usersRepository.getUsers(
     page_number,
     page_size,
     sort,
     search
   );
-
+  //fungsi untuk cek apakah ada halaman sebelumnya
   const has_previous_page = page_number > 1;
+  //fungsi untuk cek apakah ada halaman selanjutnya
   const has_next_page = page_number * page_size < users.count;
 
+  //untuk memetakan data user ke format yang lebih sederhana, yang hanya memuat informasi-informasi yang diperlukan
   const results = users.data.map((user) => ({
     id: user.id,
     name: user.name,

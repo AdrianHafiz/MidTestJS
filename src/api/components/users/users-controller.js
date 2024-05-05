@@ -8,16 +8,18 @@ const { errorResponder, errorTypes } = require('../../../core/errors');
  * @param {object} next - Express route middlewares
  * @returns {object} Response object or pass an error to the next route
  */
+
 async function getUsers(request, response, next) {
   try {
-    const { page_number, page_size, sort, search } = request.query;
+    const { page_number, page_size, sort, search } = request.query; // mengambil parameter dari query string
     const users = await usersService.getUsers(
+      // memanggil fungsi untuk mengambil daftar user yang ada.
       page_number,
       page_size,
       sort,
       search
     );
-    return response.status(200).json(users);
+    return response.status(200).json(users); //untuk mengirim daftar user sebagai sebuah respons
   } catch (error) {
     return next(error);
   }

@@ -2,10 +2,37 @@ const { User } = require('../../../models');
 
 /**
  * Get a list of users
+ * @param {number} page_number - Page number
+ * @param {number} page_size - Page size
+ * @param {string} sort - Sort field and order (e.g., "email:asc")
+ * @param {string} search - Search keyword
  * @returns {Promise}
  */
-async function getUsers() {
-  return User.find({});
+async function getUsers(page_number, page_size, sort, search) {
+  let query = User.find({});
+
+  // Pagination
+  query = query.skip((page_number - 1) * page_size).limit(page_size);
+
+  // Sorting
+  if (sort) {
+    const [field, order] = sort.split(':');
+    const sortOrder = order === 'asc' ? 1 : -1;
+    query = query.sort({ [field]: sortOrder });
+  }
+
+  // Searching
+  if (search) {
+    query = query.or([
+      { name: { $regex: search, $options: 'i' } },
+      { email: { $regex: search, $options: 'i' } },
+    ]);
+  }
+
+  const users = await query.exec();
+  const count = await User.countDocuments();
+
+  return { data: users, count };
 }
 
 /**

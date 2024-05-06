@@ -4,8 +4,19 @@ meta {
   seq: 2
 }
 
-get {
-  url: 
-  body: none
+post {
+  url: http://localhost:5000/api/products
+  body: json
   auth: none
+}
+
+headers {
+  Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwidXNlcklkIjoiNjYwY2JkNjRmNmQ0NzIyZmQ4M2RlZTAxIiwiaWF0IjoxNzE0ODk4MDYzLCJleHAiOjE3MTQ5ODQ0NjN9.Q9H7bTAZHpWfrgDid4LV94H8QnGBjUh9zRKpkRpdRv8
+}
+
+body:json {
+  {
+    "email": "rian9@example.com",
+    "password": "Test_123456"
+  }
 }

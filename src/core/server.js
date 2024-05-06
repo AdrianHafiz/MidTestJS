@@ -11,6 +11,9 @@ const { errorResponder, errorHandler, errorTypes } = require('./errors');
 
 const app = express();
 
+const productRoutes = require('../api/components/product/productRoute');
+app.use('/api/product', productRoutes);
+
 // Useful if behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc).
 // It shows the real origin IP in the Heroku or Cloudwatch logs.
 app.enable('trust proxy');
